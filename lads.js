@@ -35,9 +35,9 @@ router.post('/fundChannel', cltController.fundChannel);
 router.post('/funderUpdate', cltController.funderUpdate);
 
 app.use('/api', router);
-app.use('', express.static(path.join(__dirname, 'dist', 'lads')));
+app.use('', express.static(path.join(__dirname, 'dist')));
 app.use((req, res, next) => {
-  res.sendFile(path.join(__dirname, 'dist', 'lads', 'index.html'));
+  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
 });
 
 console.warn('--- Starting the cl-rest server ---');
