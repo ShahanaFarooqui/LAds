@@ -1,13 +1,91 @@
 <div class="d-flex flex-column align-items-start">
-    <div class="card-body pt-0 d-flex flex-column align-items-start">
-        <p class="card-text">Lease Base Fee (Sats): {{(node?.option_will_fund?.lease_fee_base_msat || 0)/1000 | number}}</p>
-        <p class="card-text">Lease Fee Rate (ppm): {{node?.option_will_fund?.lease_fee_basis}}</p>
-        <p class="card-text">Channel Open Funding Rate: {{node?.option_will_fund?.funding_weight}}</p>
-        <p class="card-text">Max Channel Routing Base Fee (Sats): {{(node?.option_will_fund?.channel_fee_max_base_msat || 0)/1000 | number}}</p>
-        <p class="card-text">Max Channel Routing Fee Rate (ppm): {{node?.option_will_fund?.channel_fee_max_proportional_thousandths}}</p>
-        <p class="card-text">ID: {{node?.nodeid}}</p>
-        <div class="d-flex flex-row justify-content-around">
-            <button class="btn btn-outline-primary" (click)="openChannelModal()">Open Channel</button>
+    <div class="card w-100">
+        <div class="card-header d-flex flex-row border-bottom w-100 my-1">
+            <div class="node-color-dot me-2 mt-1" [ngStyle]="{'background-color': '#' + node.color }"></div>
+            <h5>{{node?.alias}}</h5>
+        </div>
+        <div class="card-body p-0 d-flex flex-column align-items-start">
+            <div *ngIf="error" class="alert alert-danger d-flex align-items-start" role="alert">
+                {{error?.message || error?.error || 'Error'}}
+            </div>
+            <ul class="list-group list-group-flush w-100">
+                <li class="list-group-item">
+                    <div class="row">
+                        <div class="col-4">ID:</div>
+                        <div class="col-8">{{node?.nodeid}}</div>
+                    </div>
+                </li>
+                <li class="list-group-item">
+                    <div class="row">
+                        <div class="col-4">Last Timestamp:</div>
+                        <div class="col-8">{{((node?.last_timestamp || 0) * 1000) | date:'dd/MMM/YYYY HH:mm'}}</div>
+                    </div>
+                </li>
+                <li class="list-group-item border-bottom-thick">
+                    <div class="row">
+                        <div class="col-4">Features:</div>
+                        <div class="col-8">{{node?.features}}</div>
+                    </div>
+                </li>
+                <li class="list-group-item">
+                    <div class="row">
+                        <div class="col-4">Compact Lease:</div>
+                        <div class="col-8">{{node?.option_will_fund?.compact_lease}}</div>
+                    </div>
+                </li>
+                <li class="list-group-item">
+                    <div class="row">
+                        <div class="col-4">Lease Base Fee (Sats):</div>
+                        <div class="col-8">{{(node?.option_will_fund?.lease_fee_base_msat || 0)/1000 | number}}</div>
+                    </div>
+                </li>
+                <li class="list-group-item">
+                    <div class="row">
+                        <div class="col-4">Lease Fee Rate (ppm):</div>
+                        <div class="col-8">{{node?.option_will_fund?.lease_fee_basis}}</div>
+                    </div>
+                </li>
+                <li class="list-group-item">
+                    <div class="row">
+                        <div class="col-4">Channel Open Funding Rate:</div>
+                        <div class="col-8">{{node?.option_will_fund?.funding_weight}}</div>
+                    </div>
+                </li>
+                <li class="list-group-item">
+                    <div class="row">
+                        <div class="col-4">Max Channel Routing Base Fee (Sats):</div>
+                        <div class="col-8">{{(node?.option_will_fund?.channel_fee_max_base_msat || 0)/1000 | number}}</div>
+                    </div>
+                </li>
+                <li class="list-group-item border-bottom-thick">
+                    <div class="row">
+                        <div class="col-4">Max Channel Routing Fee Rate (ppm):</div>
+                        <div class="col-8">{{node?.option_will_fund?.channel_fee_max_proportional_thousandths}}</div>
+                    </div>
+                </li>
+                <li class="list-group-item border-bottom-thin">
+                    <div class="row">
+                        <div class="col-4">Addresses:</div>
+                        <div class="col-8"></div>
+                    </div>
+                    <div class="row m-2 border-around">
+                        <div class="row fw-bold py-1">
+                            <div class="col-2">Type</div>
+                            <div class="col-8">Address</div>
+                            <div class="col-2">Port</div>
+                        </div>
+                        <div class="row" *ngFor="let address of node.addresses">
+                            <div class="col-2">{{address.type}}</div>
+                            <div class="col-8">{{address.address}}</div>
+                            <div class="col-2">{{address.port}}</div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            <div class="d-flex flex-row justify-content-around m-3">
+                <button class="btn btn-outline-secondary me-2" (click)="goBack()">Go Back</button>
+                <button class="btn btn-outline-primary" (click)="openChannelModal()">Open Channel</button>
+            </div>
         </div>
     </div>
 </div>

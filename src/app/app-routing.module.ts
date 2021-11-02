@@ -7,7 +7,7 @@ import { LiquidityAdvertisementComponent } from './liquidity-advertisement/liqui
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'lease' },
   { path: 'lease', component: LiquidityOffersComponent },
-  { path: 'offer', component: LiquidityOfferDetailComponent },
+  { path: 'node/:nodeid', component: LiquidityOfferDetailComponent },
   { path: 'adv', component: LiquidityAdvertisementComponent }
 ];
 

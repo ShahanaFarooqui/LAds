@@ -12,6 +12,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.lqService.getNodeInfo();
+    this.lqService.listLQNodes();
     this.lqService.funderUpdatePolicy();
   }
 

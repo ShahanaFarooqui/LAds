@@ -29,9 +29,16 @@ export interface GetInfo {
     lnImplementation?: string;
 }
 
+export interface SortableNode {
+​​​​    alias?: string;
+    lease_fee_base_msat?: number, 
+    lease_fee_basis?: number,
+    funding_weight?: number, 
+    channel_fee_max_base_msat?: number,
+    channel_fee_max_proportional_thousandths?: number,
+}
+
 export interface Node {
-    compare?: boolean;
-    showDetails?: boolean;
     addresses?: Address[];
 ​​​​    alias?: string;
 ​​​​    color?: string;​​​​
@@ -70,6 +77,5 @@ export interface FunderPolicy {
 export interface LiquidityStore {
     nodeInfo?: GetInfo;
     nodes?: Node[];
-    nodesToCompare?: Node[];
     funderPolicy?: FunderPolicy;
 }

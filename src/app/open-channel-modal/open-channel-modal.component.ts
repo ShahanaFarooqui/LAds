@@ -1,7 +1,8 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, Input } from '@angular/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { BsModalRef } from 'ngx-bootstrap/modal';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+
 import { Node } from '../shared/models/store';
 import { LiquidityService } from '../shared/services/liquidity.service';
 
@@ -11,7 +12,7 @@ import { LiquidityService } from '../shared/services/liquidity.service';
   styleUrls: ['./open-channel-modal.component.scss']
 })
 export class OpenChannelModalComponent implements OnInit, OnDestroy {
-  public selectedLQNode: Node = {};
+  @Input() selectedLQNode: Node = {};
   public isInvalid = { ra: false, nu: false };
   public requestAmount: any = null;
   public feeRate: any = null;
@@ -27,7 +28,7 @@ export class OpenChannelModalComponent implements OnInit, OnDestroy {
   public initNodeUri = '';
   private unSubs: Array<Subject<void>> = [new Subject()];
 
-  constructor(private lqService: LiquidityService, public bsModalRef: BsModalRef) {}
+  constructor(private lqService: LiquidityService, public modal: NgbActiveModal) {}
 
   ngOnInit(): void { 
     console.info(this.selectedLQNode);
@@ -41,7 +42,7 @@ export class OpenChannelModalComponent implements OnInit, OnDestroy {
   onValuesChange() {
     this.successMsg = '';
     this.errorMsg = '';
-    this.total = +(this.selectedLQNode.option_will_fund?.lease_fee_base_msat || 0) + +(+(this.selectedLQNode.option_will_fund?.lease_fee_basis || 0) * +this.requestAmount) + +(+(+(this.selectedLQNode.option_will_fund?.channel_fee_max_proportional_thousandths || 0)/4) * +this.feeRate);
+    this.total = +(+((this.selectedLQNode.option_will_fund?.lease_fee_base_msat || 0)/1000) || 0) + +((+(this.selectedLQNode.option_will_fund?.lease_fee_basis || 0)/10000) * +this.requestAmount) + +(+(+(this.selectedLQNode.option_will_fund?.channel_fee_max_proportional_thousandths || 0)/4) * +this.feeRate);
   }
 
   openChannel() {
@@ -64,7 +65,8 @@ export class OpenChannelModalComponent implements OnInit, OnDestroy {
       this.successMsg = JSON.stringify(fundChannelRes);
     }, error => {
       console.error(error);
-      this.reset();
+      this.isInProgress = false;
+      this.successMsg = '';
       this.errorMsg = JSON.stringify(error.error.error.message);
     });
   }

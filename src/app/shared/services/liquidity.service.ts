@@ -1,16 +1,15 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Subject } from 'rxjs';
-import { takeUntil, mergeMap, map } from 'rxjs/operators';
+import { takeUntil, mergeMap } from 'rxjs/operators';
 
 import { FunderPolicy, GetInfo, LiquidityStore, Node } from '../models/store';
 
 @Injectable({ providedIn: 'root' })
 export class LiquidityService implements OnDestroy {
   private serverUrl = 'http://localhost:3030/api';
-  private liquidityStore: LiquidityStore = { nodesToCompare: []};
+  private liquidityStore: LiquidityStore = {};
   public nodesListSubject: BehaviorSubject<any> = new BehaviorSubject(null);
-  public nodesToCompareSubject: BehaviorSubject<any> = new BehaviorSubject(null);
   public funderPolicySubject: BehaviorSubject<FunderPolicy> = new BehaviorSubject({});
   private unSubs: Array<Subject<void>> = [new Subject(), new Subject(), new Subject(), new Subject(), new Subject(), new Subject(), new Subject(), new Subject(), new Subject(), new Subject(), new Subject(), new Subject(), new Subject()];
 
@@ -34,16 +33,7 @@ export class LiquidityService implements OnDestroy {
   listLQNodes() {
     this.httpClient.get<Node[]>(this.serverUrl + '/listLiquidityNodes').pipe(takeUntil(this.unSubs[1])).subscribe({
       next: (nodes) => {
-        const filteredNodes = nodes.filter((node) => {
-          if(node.nodeid !== this.liquidityStore.nodeInfo?.id) {
-            node.compare = false;
-            node.showDetails = false;
-            return node;
-          } else {
-            return;
-          }
-        });
-        this.liquidityStore.nodes = filteredNodes;
+        this.liquidityStore.nodes = nodes.filter((node) => (node.nodeid !== this.liquidityStore.nodeInfo?.id))
         this.nodesListSubject.next(this.liquidityStore.nodes);
         console.info(this.liquidityStore.nodes);
       }, error: (err) => {
@@ -51,17 +41,6 @@ export class LiquidityService implements OnDestroy {
         console.error(err);
       }
     });
-  }
-
-  updateCompareNodesList(lqNode: Node) {
-    let foundIndex = this.liquidityStore.nodesToCompare?.indexOf(lqNode);
-    if(typeof foundIndex === 'undefined') { foundIndex = -1; }
-    if (lqNode.compare) {
-      this.liquidityStore.nodesToCompare?.push(lqNode);
-    } else if (!lqNode.compare && foundIndex > -1) {
-      this.liquidityStore.nodesToCompare?.splice(foundIndex, 1);
-    }
-    this.nodesToCompareSubject.next(this.liquidityStore.nodesToCompare);
   }
 
   openChannel(nodeUri: string, compactLease: string, requestAmount: number, feeRate: number, localAmount: number) {
@@ -90,8 +69,6 @@ export class LiquidityService implements OnDestroy {
   }
 
   ngOnDestroy() {
-    this.nodesToCompareSubject.next(null);
-    this.nodesToCompareSubject.complete();
     this.nodesListSubject.next(null);
     this.nodesListSubject.complete();
     this.funderPolicySubject.next({});

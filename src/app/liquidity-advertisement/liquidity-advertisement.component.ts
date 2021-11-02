@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { BsModalService, BsModalRef, ModalOptions } from 'ngx-bootstrap/modal';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { FunderPolicy } from '../shared/models/store';
 import { LiquidityService } from '../shared/services/liquidity.service';
@@ -14,10 +14,9 @@ import { UpdateFundingPolicyComponent } from '../update-funding-policy/update-fu
 })
 export class LiquidityAdvertisementComponent implements OnInit, OnDestroy {
   public funderPolicy: FunderPolicy = {};
-  public modalRef?: BsModalRef;
   private unSubs: Array<Subject<void>> = [new Subject(), new Subject()];
 
-  constructor(private lqService: LiquidityService, private modalService: BsModalService) { }
+  constructor(private lqService: LiquidityService, private modalService: NgbModal) { }
 
   ngOnInit(): void {
     this.lqService.funderPolicySubject.pipe(takeUntil(this.unSubs[0])).subscribe(funderPolicy => {
@@ -26,8 +25,9 @@ export class LiquidityAdvertisementComponent implements OnInit, OnDestroy {
   }
 
   updateFundingPolicy() {
-    const initialState: ModalOptions = { initialState: { fundingPolicy: this.funderPolicy } };
-    this.modalRef = this.modalService.show(UpdateFundingPolicyComponent, initialState);
+    const modalRef = this.modalService.open(UpdateFundingPolicyComponent);
+    modalRef.componentInstance.fundingPolicy = this.funderPolicy;
+
   }
 
   ngOnDestroy() {

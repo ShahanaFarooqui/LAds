@@ -12,7 +12,7 @@
         <p class="card-text">Reserve Tank (Sats): {{(funderPolicy.reserve_tank_msat || 0)/1000 | number}}</p>
         <p class="card-text">Fuzz Percent: {{funderPolicy.fuzz_percent | number}}</p>
         <p class="card-text" *ngIf="funderPolicy.lease_fee_base_msat">Lease Fee Base (Sats): {{(funderPolicy.lease_fee_base_msat || 0)/1000 | number}}</p>
-        <p class="card-text" *ngIf="funderPolicy.lease_fee_basis">Lease Fee Basis: {{funderPolicy.lease_fee_basis | number}}</p>
+        <p class="card-text" *ngIf="funderPolicy.lease_fee_basis">Lease Fee Basis (bps): {{funderPolicy.lease_fee_basis | number}}</p>
         <p class="card-text" *ngIf="funderPolicy.funding_weight">Funding Weight: {{funderPolicy.funding_weight | number}}</p>
         <p class="card-text" *ngIf="funderPolicy.channel_fee_max_base_msat">Max Channel Routing Base Fee (Sats): {{(funderPolicy.channel_fee_max_base_msat || 0)/1000 | number}}</p>
         <p class="card-text" *ngIf="funderPolicy.channel_fee_max_proportional_thousandths">Max Channel Routing Fee Rate (ppm): {{funderPolicy.channel_fee_max_proportional_thousandths | number}}</p>

@@ -1,7 +1,7 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, Input } from '@angular/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { BsModalRef } from 'ngx-bootstrap/modal';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { FunderPolicy } from '../shared/models/store';
 import { LiquidityService } from '../shared/services/liquidity.service';
@@ -12,7 +12,7 @@ import { LiquidityService } from '../shared/services/liquidity.service';
   styleUrls: ['./update-funding-policy.component.scss']
 })
 export class UpdateFundingPolicyComponent implements OnInit, OnDestroy {
-  public fundingPolicy: FunderPolicy = {};
+  @Input() fundingPolicy: FunderPolicy = {};
   public policy = '';
   public policyMod: any;
   public leaseFeeBaseSat: any;
@@ -26,7 +26,7 @@ export class UpdateFundingPolicyComponent implements OnInit, OnDestroy {
   public isInProgress = false;
   private unSubs: Array<Subject<void>> = [new Subject()];
 
-  constructor(private lqService: LiquidityService, public bsModalRef: BsModalRef) {}
+  constructor(private lqService: LiquidityService, public modal: NgbActiveModal) {}
 
   ngOnInit(): void { 
     console.info(this.fundingPolicy);

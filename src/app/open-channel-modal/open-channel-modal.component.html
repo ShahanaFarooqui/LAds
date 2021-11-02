@@ -1,12 +1,12 @@
 <div class="modal-header">
     <h6 class="modal-title pull-left">Open channel with {{(this.selectedLQNode.alias || this.selectedLQNode.nodeid) | slice:0:40}}</h6>
-    <button type="button" tabindex="7" class="btn-close close pull-right" aria-label="Close" [disabled]="isInProgress" (click)="bsModalRef.hide()">
+    <button type="button" tabindex="7" class="btn-close close pull-right" aria-label="Close" [disabled]="isInProgress" (click)="modal.close()">
         <span aria-hidden="true" class="visually-hidden">&times;</span>
     </button>
 </div>
 <div class="modal-body">
-    <div class="mb-2">
-        <progressbar *ngIf="isInProgress" class="progress-striped active" [max]="100" [striped]="true" [animate]="true" [value]="progressVal" type="info"></progressbar>
+    <div class="mb-2" *ngIf="isInProgress">
+        <ngb-progressbar type="info" [value]="progressVal" height="5px" [striped]="true" [animated]="true"></ngb-progressbar>
     </div>    
     <div class="row g-3">
         <div class="form-floating col-md-8 mb-2">
@@ -33,7 +33,7 @@
             <div class="invalid-feedback ps-1">Invalid Value: Node URI is Mandatory!</div>
         </div>
         <div *ngIf="errorMsg === '' && successMsg === ''" class="alert alert-info col-md-12 m-2 w-98" role="alert">
-            <strong>Total Cost (Sats): {{(total || 0) | number}}</strong>
+            <strong>Total Cost to Lease (Sats): {{(total || 0) | number}}</strong>
         </div>
         <div *ngIf="successMsg !== '' && !isInProgress" class="alert alert-info col-md-12 m-2 w-98" role="alert">
             {{('Successful: ' + successMsg) || 'Successfully Funded the Channel!'}}

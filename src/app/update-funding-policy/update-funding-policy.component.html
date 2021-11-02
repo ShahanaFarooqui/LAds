@@ -1,12 +1,12 @@
 <div class="modal-header">
     <h6 class="modal-title pull-left">Update Funding Policy</h6>
-    <button type="button" tabindex="11" class="btn-close close pull-right" aria-label="Close" [disabled]="isInProgress" (click)="bsModalRef.hide()">
+    <button type="button" tabindex="11" class="btn-close close pull-right" aria-label="Close" [disabled]="isInProgress" (click)="modal.close()">
         <span aria-hidden="true" class="visually-hidden">&times;</span>
     </button>
 </div>
 <div class="modal-body">
-    <div class="mb-2">
-        <progressbar *ngIf="isInProgress" class="progress-striped active" [max]="100" [striped]="true" [animate]="true" [value]="progressVal" type="info"></progressbar>
+    <div class="mb-2" *ngIf="isInProgress">
+        <ngb-progressbar type="info" [value]="progressVal" height="5px" [striped]="true" [animated]="true"></ngb-progressbar>
     </div>    
     <div class="row g-3">
         <div class="col-md-8 mb-2">
@@ -35,7 +35,7 @@
         </div>
         <div class="form-floating col-md-8 mb-2">
             <input type="number" class="form-control" tabindex="6" step="10" [(ngModel)]="leaseFeeBasis" placeholder="Lease Fee Basis">
-            <label>Lease Fee Basis</label>
+            <label>Lease Fee Basis (bps)</label>
         </div>
         <div class="form-floating col-md-8 mb-2">
             <input type="number" class="form-control" tabindex="7" step="1" [(ngModel)]="channelFeeMaxBaseSat" placeholder="Max Channel Routing Base Fee (Sats)">

@@ -1,6 +1,6 @@
 $primary: #05445e !default;
 $secondary: #aa4465 !default;
-$info: rgba(147, 225, 216, 1) !default;
+$info: rgba(80, 94, 109,  1) !default;
 $danger: #a10413 !default;
 $body-color: $primary !default;
 $border-color: $primary !default;
@@ -9,7 +9,7 @@ $card-border-color: $primary !default;
 @import "node_modules/bootstrap/scss/bootstrap";
 
 body {
-    background-image: linear-gradient(180deg, rgba(147, 225, 216, 0.01), rgba(147, 225, 216, 0.04), rgba(147, 225, 216, 0.1), rgba(147, 225, 216, 1));
+    background-image: linear-gradient(180deg, rgba(80, 94, 109,  0.01), rgba(80, 94, 109,  0.02), rgba(80, 94, 109,  0.04), rgba(80, 94, 109,  0.06), rgba(80, 94, 109, 0.6));
     height: 110vh;
     scrollbar-width: thin;
 }
@@ -68,6 +68,12 @@ body {
         font-weight: 400;
         padding-top: 0;
         padding-bottom: 0;
+        min-width: 130px;
+        max-width: 130px;
+        text-align: right;
+    }
+    & tbody tr td {
+        text-align: right;
     }
     & .th-node-alias {
         min-width: 180px;
@@ -75,6 +81,7 @@ body {
         white-space: nowrap;
         text-overflow: ellipsis;
         overflow-x: hidden;
+        text-align: left !important;
     }
 }
 
@@ -102,4 +109,27 @@ body {
             fill: $white;
         }
     }    
+}
+
+.node-color-dot {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%; 
+}
+
+.border-bottom-thin {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.125) !important;
+}
+
+.border-bottom-thick {
+    border-bottom: 3px solid rgba(0, 0, 0, 0.125) !important;
+}
+
+.border-around {
+    border: 1px solid rgba(0, 0, 0, 0.125) !important;
+    border-radius: 4px;
+}
+
+.h-60-px {
+    height: 60px !important;
 }
