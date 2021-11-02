@@ -1,1 +1,105 @@
-/* You can add global styles to this file, and also import other style files */
+$primary: #05445e !default;
+$secondary: #aa4465 !default;
+$info: rgba(147, 225, 216, 1) !default;
+$danger: #a10413 !default;
+$body-color: $primary !default;
+$border-color: $primary !default;
+$card-border-color: $primary !default;
+
+@import "node_modules/bootstrap/scss/bootstrap";
+
+body {
+    background-image: linear-gradient(180deg, rgba(147, 225, 216, 0.01), rgba(147, 225, 216, 0.04), rgba(147, 225, 216, 0.1), rgba(147, 225, 216, 1));
+    height: 110vh;
+    scrollbar-width: thin;
+}
+
+.container {
+    max-width: 960px;
+}
+
+.nav-link {
+    color: $primary;
+    text-decoration: none;;
+    &:hover {
+        color: $secondary;
+        .bi {
+            fill: $secondary;
+        }
+    }
+    &.active-link {
+        color: $secondary;
+        .bi {
+            fill: $secondary;
+        }
+    }
+}
+
+.bi {
+    fill: $primary;
+    cursor: pointer;
+    &:hover {
+        fill: $secondary;
+    }
+}
+
+.card-header {
+    background-color: rgba(0, 0, 0, 0) !important;
+    border-bottom: none;
+}
+
+.panel-collapse {
+    & .panel-body {
+        padding-top: 0 !important;
+        padding-bottom: 0 !important;
+    }
+}
+
+.accordion-toggle .btn.btn-block {
+    cursor: default;
+}
+
+.table > :not(:first-child) {
+    border-top: none;
+}
+
+.table {
+    & thead tr th {
+        font-weight: 400;
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+    & .th-node-alias {
+        min-width: 180px;
+        max-width: 180px;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow-x: hidden;
+    }
+}
+
+.modal {
+    overflow-wrap: break-word;
+    & .modal-dialog {
+        max-width: 960px;
+    }
+}
+
+.w-98 {
+    width: 98% !important;
+}
+
+.form-control:disabled, .form-control[readonly] {
+    opacity: 1;
+    cursor: not-allowed;
+}
+
+.input-group.form-floating {
+    .bi {
+        fill: $primary;
+        cursor: pointer;
+        &:hover {
+            fill: $white;
+        }
+    }    
+}

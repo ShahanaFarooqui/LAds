@@ -1,0 +1,59 @@
+<div class="modal-header">
+    <h6 class="modal-title pull-left">Update Funding Policy</h6>
+    <button type="button" tabindex="11" class="btn-close close pull-right" aria-label="Close" [disabled]="isInProgress" (click)="bsModalRef.hide()">
+        <span aria-hidden="true" class="visually-hidden">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <div class="mb-2">
+        <progressbar *ngIf="isInProgress" class="progress-striped active" [max]="100" [striped]="true" [animate]="true" [value]="progressVal" type="info"></progressbar>
+    </div>    
+    <div class="row g-3">
+        <div class="col-md-8 mb-2">
+            <div class="d-flex flex-row justify-content-between">
+            <div class="form-check">
+                <input class="form-check-input" ladsAutoFocus type="radio" name="policy" id="rd1" tabindex="1" value="match" [checked]="policy === 'match'" [(ngModel)]="policy">
+                <label class="form-check-label" for="rd1">Match</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="policy" id="rd2" tabindex="2" value="available" [checked]="policy === 'available'" [(ngModel)]="policy">
+                <label class="form-check-label" for="rd2">Available</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="policy" id="rd3" tabindex="3" value="fixed" [checked]="policy === 'fixed'" [(ngModel)]="policy">
+                <label class="form-check-label" for="rd3">Fixed</label>
+            </div>
+            </div>
+        </div>
+        <div class="form-floating col-md-8 mb-2">
+            <input type="number" class="form-control" tabindex="4" step="10" [(ngModel)]="policyMod" placeholder="Policy Modifier">
+            <label>Policy Modifier</label>
+        </div>
+        <div class="form-floating col-md-8 mb-2">
+            <input type="number" class="form-control" tabindex="5" step="1000" [(ngModel)]="leaseFeeBaseSat" placeholder="Lease Base Fee (Sats)">
+            <label>Lease Base Fee (Sats)</label>
+        </div>
+        <div class="form-floating col-md-8 mb-2">
+            <input type="number" class="form-control" tabindex="6" step="10" [(ngModel)]="leaseFeeBasis" placeholder="Lease Fee Basis">
+            <label>Lease Fee Basis</label>
+        </div>
+        <div class="form-floating col-md-8 mb-2">
+            <input type="number" class="form-control" tabindex="7" step="1" [(ngModel)]="channelFeeMaxBaseSat" placeholder="Max Channel Routing Base Fee (Sats)">
+            <label>Max Channel Routing Base Fee (Sats)</label>
+        </div>
+        <div class="form-floating col-md-8 mb-2">
+            <input type="number" class="form-control" tabindex="8" step="10" [(ngModel)]="channelFeeMaxProportional" placeholder="Max Channel Routing Fee Rate (ppm)">
+            <label>Max Channel Routing Fee Rate (ppm)</label>
+        </div>
+        <div *ngIf="successMsg !== '' && !isInProgress" class="alert alert-info col-md-12 m-2 w-98" role="alert">
+            {{(successMsg) || 'Successfully Updated the Funding Policy!'}}
+        </div>
+        <div *ngIf="errorMsg !== '' && !isInProgress" class="alert alert-danger col-md-12 m-2 w-98" role="alert">
+            {{('Error: ' + errorMsg) || 'Unknown Error'}}
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button [disabled]="isInProgress" type="reset" class="btn btn-outline-secondary" tabindex="9" (click)="reset()">Clear</button>
+    <button [disabled]="isInProgress" type="submit" class="btn btn-outline-primary" tabindex="10" (click)="updateFundingPolicy()">Update Policy</button>
+</div>

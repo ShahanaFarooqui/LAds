@@ -1,0 +1,13 @@
+<div class="d-flex flex-column align-items-start">
+    <div class="card-body pt-0 d-flex flex-column align-items-start">
+        <p class="card-text">Lease Base Fee (Sats): {{(node?.option_will_fund?.lease_fee_base_msat || 0)/1000 | number}}</p>
+        <p class="card-text">Lease Fee Rate (ppm): {{node?.option_will_fund?.lease_fee_basis}}</p>
+        <p class="card-text">Channel Open Funding Rate: {{node?.option_will_fund?.funding_weight}}</p>
+        <p class="card-text">Max Channel Routing Base Fee (Sats): {{(node?.option_will_fund?.channel_fee_max_base_msat || 0)/1000 | number}}</p>
+        <p class="card-text">Max Channel Routing Fee Rate (ppm): {{node?.option_will_fund?.channel_fee_max_proportional_thousandths}}</p>
+        <p class="card-text">ID: {{node?.nodeid}}</p>
+        <div class="d-flex flex-row justify-content-around">
+            <button class="btn btn-outline-primary" (click)="openChannelModal()">Open Channel</button>
+        </div>
+    </div>
+</div>
