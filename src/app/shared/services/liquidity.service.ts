@@ -4,10 +4,11 @@ import { BehaviorSubject, Subject } from 'rxjs';
 import { takeUntil, mergeMap } from 'rxjs/operators';
 
 import { FunderPolicy, GetInfo, LiquidityStore, Node } from '../models/store';
+import { environment } from 'src/environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class LiquidityService implements OnDestroy {
-  private serverUrl = 'http://localhost:3030/api';
+  private serverUrl = environment.apiUrl;
   private liquidityStore: LiquidityStore = {};
   public nodesListSubject: BehaviorSubject<any> = new BehaviorSubject(null);
   public funderPolicySubject: BehaviorSubject<FunderPolicy> = new BehaviorSubject({});
