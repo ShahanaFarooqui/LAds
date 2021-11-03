@@ -1,27 +1,46 @@
-# Lads
+# Liquidity Ads
+This project can be used to adverstize your node's liquidity to the netwrok and to dual fund channels with lease options.
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.2.12.
+## How to run
+1) Clone/pull the repository to your local machine.
+2) Go into the cloned local folder and run `npm install --prod`.
+3) Execute command `node lads` in the same folder once the step two is complete.
+4) The server is designed to read the default lightning rpc path. However it can be updated by passing `LN_PATH`'s value to the node environment. For example, replace step 3's command as `LN_PATH=/your/ln/path node lads`.
+5) Open the UI in any browser on port 3030 (http://localhost:3030).
 
-## Development server
+## Prerequisites
+These instructions are based on assumption that you already are running/installed:
+  1) bitcoind,
+  2) clightning,
+  3) Nodejs >= v14 & npm >= v7
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## Screenshots
+### <a name="lease"></a>Lease
+![](./screenshots/photos/Lease.png)
 
-## Code scaffolding
+### <a name="lease-sort"></a>Lease Sort
+![](./screenshots/photos/Lease-sort.png)
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+### <a name="lease-filter"></a>Lease Filter
+![](./screenshots/photos/Lease-filter.png)
 
-## Build
+### <a name="node"></a>Node Details
+![](./screenshots/photos/Node-detail.png)
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+### <a name="dual"></a>Dual Funding
+![](./screenshots/photos/Open-channel.png)
 
-## Running unit tests
+### <a name="dual-validate"></a>Open Channel Validation
+![](./screenshots/photos/Open-channel-validation.png)
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+### <a name="funding"></a>Funding Home
+![](./screenshots/photos/Funding-get.png)
 
-## Running end-to-end tests
+### <a name="funding-form"></a>Funding Update
+![](./screenshots/photos/Funding-update-form.png)
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+### <a name="funding-updated"></a>Funding Updated
+![](./screenshots/photos/Funding-updated.png)
 
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+### <a name="funding-video"></a>Funding Video
+![](./screenshots/videos/Funding.webm)
