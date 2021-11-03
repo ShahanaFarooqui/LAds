@@ -1,5 +1,5 @@
 # Liquidity Ads
-This project can be used to adverstize your node's liquidity to the netwrok and to dual fund channels with lease options.
+This product provides an interface to view, manage and accept liquidity ads available via C-Lightning.
 
 ## How to run
 1) Clone/pull the repository to your local machine.
@@ -9,9 +9,9 @@ This project can be used to adverstize your node's liquidity to the netwrok and 
 5) Open the UI in any browser on port 3030 (http://localhost:3030).
 
 ## Prerequisites
-These instructions are based on assumption that you already are running/installed:
-  1) bitcoind,
-  2) clightning,
+These instructions are based on assumption that you already are running:
+  1) bitcoind
+  2) clightning
   3) Nodejs >= v14 & npm >= v7
 
 ## Screenshots
