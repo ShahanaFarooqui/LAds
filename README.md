@@ -41,6 +41,3 @@ These instructions are based on assumption that you already are running/installe
 
 ### <a name="funding-updated"></a>Funding Updated
 ![](./screenshots/photos/Funding-updated.png)
-
-### <a name="funding-video"></a>Funding Video
-![](./screenshots/videos/Funding.webm)
