@@ -15,29 +15,63 @@ These instructions are based on assumption that you already are running:
   3) Nodejs >= v14 & npm >= v7
 
 ## Screenshots
-### <a name="lease"></a>Lease
+### <a name="lease"></a>Ads
+Ads for the nodes offering liquidity on the network
+
 ![](./screenshots/photos/Lease.png)
 
-### <a name="lease-sort"></a>Lease Sort
+
+
+### <a name="lease-sort"></a>Ads Sort
+The Ads can be sorted by any of the available columns
+
 ![](./screenshots/photos/Lease-sort.png)
 
-### <a name="lease-filter"></a>Lease Filter
+
+
+### <a name="lease-filter"></a>Ads Filter
+Search filter can be applied to search on any text on the grid
+
 ![](./screenshots/photos/Lease-filter.png)
 
+
+
 ### <a name="node"></a>Node Details
+Details of the node offering liquidity
+
 ![](./screenshots/photos/Node-detail.png)
 
-### <a name="dual"></a>Dual Funding
+
+
+### <a name="openchannel"></a>Leasing Liquidity
+Requesting channel liquidity from the ad
+
 ![](./screenshots/photos/Open-channel.png)
 
+
+
 ### <a name="dual-validate"></a>Open Channel Validation
+Open channel form showing error on the incorrect value
+
 ![](./screenshots/photos/Open-channel-validation.png)
 
-### <a name="funding"></a>Funding Home
+
+
+### <a name="funding"></a>View Funding Policy
+View your node's funding policy
+
 ![](./screenshots/photos/Funding-get.png)
 
+
+
 ### <a name="funding-form"></a>Funding Update
+Update your node's funding policy
+
 ![](./screenshots/photos/Funding-update-form.png)
 
+
+
 ### <a name="funding-updated"></a>Funding Updated
+Updated node's funding policy (Returns `Compact Lease` parameter)
+
 ![](./screenshots/photos/Funding-updated.png)
