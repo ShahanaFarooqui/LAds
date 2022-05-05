@@ -1,4 +1,4 @@
-exports.getinfo = (req,res) => {
+export const getinfo = (req,res) => {
     function connFailed(err) { throw err }
     ln.on('error', connFailed);
     ln.getinfo().then(data => {
@@ -12,7 +12,7 @@ exports.getinfo = (req,res) => {
     ln.removeListener('error', connFailed);
 }
 
-exports.listLiquidityNodes = (req,res) => {
+export const listLiquidityNodes = (req,res) => {
     function connFailed(err) { throw err }
     ln.on('error', connFailed);
     ln.listnodes().then(data => {
@@ -33,22 +33,7 @@ exports.listLiquidityNodes = (req,res) => {
     ln.removeListener('error', connFailed);
 }
 
-exports.connectPeer = (req,res) => {
-    console.log('connectPeer initiated...');
-    function connFailed(err) { throw err }
-    ln.on('error', connFailed);
-    ln.connect(req.body.id).then(data => {
-        console.log('id -> '+ data.id);
-        console.log('connectPeer success');
-        res.status(201).json(data);
-    }).catch(err => {
-        console.warn(err);
-        res.status(500).json({error: err});
-    });
-    ln.removeListener('error', connFailed);
-}
-
-exports.fundChannel = (req,res) => {
+export const fundChannel = (req,res) => {
     console.log('fundchannel initiated...');
     function connFailed(err) { throw err }
     ln.on('error', connFailed);
@@ -68,7 +53,7 @@ exports.fundChannel = (req,res) => {
     ln.removeListener('error', connFailed);
 }
 
-exports.funderUpdate = (req,res) => {
+export const funderUpdate = (req,res) => {
     console.log('funderupdate initiated...');
     function connFailed(err) { throw err }
     ln.on('error', connFailed);
@@ -88,6 +73,21 @@ exports.funderUpdate = (req,res) => {
         data.lease_fee_base_msat = data.lease_fee_base_msat ? data.lease_fee_base_msat.slice(0, -4) : null;
         data.channel_fee_max_base_msat = data.channel_fee_max_base_msat ? data.channel_fee_max_base_msat.slice(0, -4) : null;
         console.log(data);
+        res.status(201).json(data);
+    }).catch(err => {
+        console.warn(err);
+        res.status(500).json({error: err});
+    });
+    ln.removeListener('error', connFailed);
+}
+
+export const connectPeer = (req,res) => {
+    console.log('connectPeer initiated...');
+    function connFailed(err) { throw err }
+    ln.on('error', connFailed);
+    ln.connect(req.body.id).then(data => {
+        console.log('id -> '+ data.id);
+        console.log('connectPeer success');
         res.status(201).json(data);
     }).catch(err => {
         console.warn(err);

@@ -19,6 +19,7 @@ export class LiquidityOffersComponent implements OnInit, OnDestroy {
   public currentSortEvent: SortEvent = { column: '', direction: '' };
   public lqNodes: Node[] = [];
   public filteredNodes: Node[] = [];
+  public nodesToCompare: Node[] = [];
   public filter = '';
   public error: any = null;
   private unSubs: Array<Subject<void>> = [new Subject(), new Subject(), new Subject(), new Subject()];
@@ -52,6 +53,16 @@ export class LiquidityOffersComponent implements OnInit, OnDestroy {
     });
   }
 
+  onCompare(event: any, selectedNode: Node) {
+    if (event.checked) {
+      this.nodesToCompare.push(selectedNode);
+    }
+  }
+
+  CompareNodes() {
+    this.router.navigate(['node/' + this.nodesToCompare[0].nodeid + '/' + this.nodesToCompare[1].nodeid]);
+  }
+
   openChannelModal(lqNode: Node) {
     const modalRef = this.modalService.open(OpenChannelModalComponent);
     modalRef.componentInstance.selectedLQNode = lqNode;
@@ -63,8 +74,8 @@ export class LiquidityOffersComponent implements OnInit, OnDestroy {
 
   compare = (v1: string | number, v2: string | number) => v1 < v2 ? -1 : v1 > v2 ? 1 : 0;
 
-  onSort({column, direction}: SortEvent) {
-    this.currentSortEvent = {column, direction};
+  onSort({ column, direction }: SortEvent) {
+    this.currentSortEvent = { column, direction };
     if (this.currentSortEvent.direction === '') {
       this.currentSortEvent.column = '';
     }
@@ -89,12 +100,12 @@ export class LiquidityOffersComponent implements OnInit, OnDestroy {
       });
     }
   }
-  
+
   ngOnDestroy() {
     this.unSubs.forEach((completeSub) => {
       completeSub.next();
       completeSub.complete();
     });
   }
-  
+
 }

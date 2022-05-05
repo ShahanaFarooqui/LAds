@@ -3,12 +3,12 @@ export interface Address {
     address?: string;
     port?: number;
 }
-  
+
 export interface GetInfoChain {
     chain?: string;
     network?: string;
 }
-  
+
 export interface GetInfo {
     id?: string;
     api_version?: string;
@@ -30,28 +30,28 @@ export interface GetInfo {
 }
 
 export interface SortableNode {
-​​​​    alias?: string;
-    lease_fee_base_msat?: number, 
+    alias?: string;
+    lease_fee_base_msat?: number,
     lease_fee_basis?: number,
-    funding_weight?: number, 
+    funding_weight?: number,
     channel_fee_max_base_msat?: number,
     channel_fee_max_proportional_thousandths?: number,
 }
 
 export interface Node {
     addresses?: Address[];
-​​​​    alias?: string;
-​​​​    color?: string;​​​​
+    alias?: string;
+    color?: string;
     features?: string;
-​​​​    last_timestamp?: number;​​​​
+    last_timestamp?: number;
     nodeid?: string;
-    option_will_fund?: { 
-        lease_fee_base_msat?: number, 
+    option_will_fund?: {
+        lease_fee_base_msat?: number,
         lease_fee_basis?: number,
-        funding_weight?: number, 
+        funding_weight?: number,
         channel_fee_max_base_msat?: number,
         channel_fee_max_proportional_thousandths?: number,
-        compact_lease?: string 
+        compact_lease?: string
     }
 }
 
@@ -79,3 +79,8 @@ export interface LiquidityStore {
     nodes?: Node[];
     funderPolicy?: FunderPolicy;
 }
+
+export const FEATURES = {
+    DATA_LOSS_PROTECT: { first: 0, second: 1, value: 'option_data_loss_protect' },
+    UPFRONT_SHUTDOWN_SCRIPT: { first: 4, second: 5, value: 'option_upfront_shutdown_script' }
+};

@@ -1,16 +1,21 @@
-const express = require('express');
-const app = require('express')();
-const path = require('path');
-const bodyparser = require('body-parser');
-var router = require('express').Router();
-var cltController = require('./clt.controller');
+import http from 'http';
+import express from 'express';
+import bodyparser from 'body-parser';
+import { join, dirname } from 'path';
+import { Low, JSONFile } from 'lowdb';
+import { fileURLToPath } from 'url';
+const app = express();
 
-const cdir = process.env.CL_REST_STATE_DIR ? process.env.CL_REST_STATE_DIR : __dirname;
+const router = express.Router();
+import { getinfo, listLiquidityNodes, fundChannel, funderUpdate, connectPeer } from './clt.controller.js';
+
+const cdir = process.env.CL_REST_STATE_DIR ? process.env.CL_REST_STATE_DIR : dirname(fileURLToPath(import.meta.url));
 console.log("cl-rest state dir: " + cdir);
 process.chdir(cdir);
 
 let lnpath = process.env.LN_PATH;
-global.ln = require('./clt-client')(lnpath);
+import { LightningClient } from './clt-client.cjs';
+global.ln = new LightningClient(lnpath);
 
 app.use(bodyparser.json());
 app.use(bodyparser.urlencoded({ extended: false }));
@@ -28,22 +33,46 @@ app.use((req, res, next) => {
 });
 
 
-router.get('/getInfo', cltController.getinfo);
-router.get('/listLiquidityNodes', cltController.listLiquidityNodes);
-router.post('/connectPeer', cltController.connectPeer);
-router.post('/fundChannel', cltController.fundChannel);
-router.post('/funderUpdate', cltController.funderUpdate);
+router.get('/getInfo', getinfo);
+router.get('/listLiquidityNodes', listLiquidityNodes);
+router.post('/connectPeer', connectPeer);
+router.post('/fundChannel', fundChannel);
+router.post('/funderUpdate', funderUpdate);
 
 app.use('/api', router);
-app.use('', express.static(path.join(__dirname, 'dist')));
+app.use('', express.static(join(dirname(fileURLToPath(import.meta.url)), 'dist')));
 app.use((req, res, next) => {
-  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
+  res.sendFile(join(dirname(fileURLToPath(import.meta.url)), 'dist', 'index.html'));
 });
 
 console.warn('--- Starting the cl-rest server ---');
-server = require('http').createServer( app );
+let server = http.createServer( app );
 
 server.listen('3030', function() {
     console.warn('--- cl-rest api server is ready and listening on port: 3030 ---');
 })
 
+
+// Use JSON file for storage
+const file = join(dirname(fileURLToPath(import.meta.url)), 'db.json')
+const adapter = new JSONFile(file)
+const db = new Low(adapter)
+
+// Read data from JSON file, this will set db.data content
+await db.read()
+
+// If file.json doesn't exist, db.data will be null
+// Set default data
+db.data ||= { posts: [] }
+// db.data = db.data || { posts: [] } // for node < v15.x
+
+// Create and query items using plain JS
+db.data.posts.push('hello world')
+db.data.posts[0]
+
+// You can also use this syntax if you prefer
+const { posts } = db.data
+posts.push('hello world')
+
+// Write db.data content to db.json
+await db.write()

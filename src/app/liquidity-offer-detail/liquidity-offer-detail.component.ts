@@ -14,17 +14,20 @@ import { OpenChannelModalComponent } from '../open-channel-modal/open-channel-mo
   styleUrls: ['./liquidity-offer-detail.component.scss']
 })
 export class LiquidityOfferDetailComponent implements OnInit, OnDestroy {
-  node: Node = {};
+  node1: Node = {};
+  node2: Node = {};
   public error: any = null;
   private unSubs: Array<Subject<void>> = [new Subject(), new Subject(), new Subject(), new Subject()];
 
   constructor(private lqService: LiquidityService, private modalService: NgbModal, private activatedRoute: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
-    const nodeidFromParam = (this.activatedRoute.snapshot.paramMap.get('nodeid') || '');
+    const nodeid1FromParam = (this.activatedRoute.snapshot.paramMap.get('nodeid1') || '');
+    const nodeid2FromParam = (this.activatedRoute.snapshot.paramMap.get('nodeid2') || '');
     this.lqService.nodesListSubject.pipe(takeUntil(this.unSubs[0])).subscribe({
       next: (nodesRes: Node[]) => {
-        this.node = (nodesRes && nodesRes.length && nodesRes.length > 0) ? (nodesRes.find(nodeToCompare => nodeToCompare.nodeid === nodeidFromParam) || {}) : {};
+        this.node1 = (nodesRes && nodesRes.length && nodesRes.length > 0) ? (nodesRes.find(nodeToCompare => nodeToCompare.nodeid === nodeid1FromParam) || {}) : {};
+        this.node2 = (nodesRes && nodesRes.length && nodesRes.length > 0) ? (nodesRes.find(nodeToCompare => nodeToCompare.nodeid === nodeid2FromParam) || {}) : {};
       }, error: (err) => {
         console.error(err);
         this.error = err;
@@ -34,7 +37,7 @@ export class LiquidityOfferDetailComponent implements OnInit, OnDestroy {
 
   openChannelModal() {
     const modalRef = this.modalService.open(OpenChannelModalComponent);
-    modalRef.componentInstance.selectedLQNode = this.node;
+    modalRef.componentInstance.selectedLQNode = this.node1;
   }
 
   goBack() {

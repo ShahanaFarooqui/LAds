@@ -7,7 +7,7 @@ import { LiquidityAdvertisementComponent } from './liquidity-advertisement/liqui
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'lease' },
   { path: 'lease', component: LiquidityOffersComponent },
-  { path: 'node/:nodeid', component: LiquidityOfferDetailComponent },
+  { path: 'node/:nodeid1/:nodeid2', component: LiquidityOfferDetailComponent },
   { path: 'adv', component: LiquidityAdvertisementComponent }
 ];
 
@@ -15,4 +15,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

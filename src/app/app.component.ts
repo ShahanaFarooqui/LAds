@@ -7,7 +7,7 @@ import { LiquidityService } from './shared/services/liquidity.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  
+
   constructor(private lqService: LiquidityService) { }
 
   ngOnInit(): void {
